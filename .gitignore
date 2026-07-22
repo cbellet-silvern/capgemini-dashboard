@@ -1,0 +1,20 @@
+node_modules/
+.next/
+out/
+build/
+next-env.d.ts
+*.tsbuildinfo
+
+# The demo database is generated — `npm run seed` rebuilds it deterministically.
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+
+.DS_Store
+*.log
+.env*.local
+
+# A local registry or auth override is a machine concern, not a repo one —
+# committing one silently changes package resolution for everyone who clones.
+.npmrc

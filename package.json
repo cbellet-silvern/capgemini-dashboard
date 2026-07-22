@@ -1,0 +1,33 @@
+{
+  "name": "engagement-ledger",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI Engagement Ledger — track Claude usage and rebill it to clients alongside consultant hours, per project and workstream.",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "seed": "node scripts/seed.mjs",
+    "reset": "node scripts/seed.mjs --force",
+    "check:palette": "node scripts/check-palette.mjs",
+    "test": "node --experimental-strip-types --no-warnings=ExperimentalWarning --import ./scripts/register-loader.mjs lib/billing.test.ts",
+    "test:parity": "node --experimental-strip-types --no-warnings=ExperimentalWarning --import ./scripts/register-loader.mjs lib/pricing.parity.test.ts",
+    "test:statements": "node --experimental-strip-types --no-warnings=ExperimentalWarning --import ./scripts/register-loader.mjs lib/statements.test.ts",
+    "check": "npm run test && npm run test:parity && npm run test:statements && npm run check:palette"
+  },
+  "dependencies": {
+    "next": "^16.2.10",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "typescript": "^5.9.0"
+  }
+}

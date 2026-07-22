@@ -1,0 +1,114 @@
+{
+  "$comment": [
+    "Effective-dated Claude list pricing, in USD per million tokens (MTok).",
+    "Single source of truth: imported by lib/pricing.ts (app) and scripts/seed.mjs (seeder).",
+    "Cache rates follow the published multipliers on the base input rate:",
+    "  cache read        = input x 0.10",
+    "  cache write (5m)  = input x 1.25",
+    "  cache write (1h)  = input x 2.00",
+    "Batch API applies a flat 50% discount to every token rate (see batchDiscount).",
+    "A rate row is selected by the greatest effectiveFrom <= the usage date, so a",
+    "repriced model does not retroactively change an already-issued invoice."
+  ],
+  "batchDiscount": 0.5,
+  "rates": [
+    {
+      "model": "claude-fable-5",
+      "displayName": "Claude Fable 5",
+      "tier": "frontier",
+      "effectiveFrom": "2026-01-01",
+      "inputPerMTok": 10.0,
+      "outputPerMTok": 50.0,
+      "cacheReadPerMTok": 1.0,
+      "cacheWrite5mPerMTok": 12.5,
+      "cacheWrite1hPerMTok": 20.0,
+      "note": "Most capable widely released model. Priced above the Opus tier."
+    },
+    {
+      "model": "claude-opus-4-8",
+      "displayName": "Claude Opus 4.8",
+      "tier": "opus",
+      "effectiveFrom": "2026-01-01",
+      "inputPerMTok": 5.0,
+      "outputPerMTok": 25.0,
+      "cacheReadPerMTok": 0.5,
+      "cacheWrite5mPerMTok": 6.25,
+      "cacheWrite1hPerMTok": 10.0,
+      "note": "Default model for delivery work. 1M context at standard pricing."
+    },
+    {
+      "model": "claude-opus-4-7",
+      "displayName": "Claude Opus 4.7",
+      "tier": "opus",
+      "effectiveFrom": "2026-01-01",
+      "inputPerMTok": 5.0,
+      "outputPerMTok": 25.0,
+      "cacheReadPerMTok": 0.5,
+      "cacheWrite5mPerMTok": 6.25,
+      "cacheWrite1hPerMTok": 10.0,
+      "note": "Previous-generation Opus. Still in use on pinned engagements."
+    },
+    {
+      "model": "claude-sonnet-5",
+      "displayName": "Claude Sonnet 5",
+      "tier": "sonnet",
+      "effectiveFrom": "2026-01-01",
+      "inputPerMTok": 2.0,
+      "outputPerMTok": 10.0,
+      "cacheReadPerMTok": 0.2,
+      "cacheWrite5mPerMTok": 2.5,
+      "cacheWrite1hPerMTok": 4.0,
+      "note": "Introductory pricing, in effect through 2026-08-31."
+    },
+    {
+      "model": "claude-sonnet-5",
+      "displayName": "Claude Sonnet 5",
+      "tier": "sonnet",
+      "effectiveFrom": "2026-09-01",
+      "inputPerMTok": 3.0,
+      "outputPerMTok": 15.0,
+      "cacheReadPerMTok": 0.3,
+      "cacheWrite5mPerMTok": 3.75,
+      "cacheWrite1hPerMTok": 6.0,
+      "note": "Standard pricing resumes once the introductory period ends."
+    },
+    {
+      "model": "claude-sonnet-4-6",
+      "displayName": "Claude Sonnet 4.6",
+      "tier": "sonnet",
+      "effectiveFrom": "2026-01-01",
+      "inputPerMTok": 3.0,
+      "outputPerMTok": 15.0,
+      "cacheReadPerMTok": 0.3,
+      "cacheWrite5mPerMTok": 3.75,
+      "cacheWrite1hPerMTok": 6.0,
+      "note": "Previous-generation Sonnet."
+    },
+    {
+      "model": "claude-haiku-4-5",
+      "displayName": "Claude Haiku 4.5",
+      "tier": "haiku",
+      "effectiveFrom": "2026-01-01",
+      "inputPerMTok": 1.0,
+      "outputPerMTok": 5.0,
+      "cacheReadPerMTok": 0.1,
+      "cacheWrite5mPerMTok": 1.25,
+      "cacheWrite1hPerMTok": 2.0,
+      "note": "Classification, extraction, and other high-volume scoped tasks."
+    }
+  ],
+  "seats": [
+    {
+      "plan": "team",
+      "displayName": "Claude Team seat",
+      "monthlyCost": 30.0,
+      "note": "Per-seat monthly cost. Not token-metered — allocated across workstreams."
+    },
+    {
+      "plan": "enterprise",
+      "displayName": "Claude Enterprise seat",
+      "monthlyCost": 60.0,
+      "note": "Per-seat monthly cost, negotiated. Allocated across workstreams."
+    }
+  ]
+}
