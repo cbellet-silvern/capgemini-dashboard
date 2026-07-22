@@ -18,6 +18,7 @@ import {
   listProjects,
   listTimeEntries,
   listUsage,
+  listUsageByModel,
   listUsageForProject,
   listWorkstreams,
   projectBillingInput,
@@ -111,6 +112,7 @@ export async function GET(
   const sp = new URL(request.url).searchParams;
   const projectId = first(sp.get("project"));
   const monthParam = first(sp.get("month"));
+  const modelFilter = first(sp.get("model"));
   const internal = sp.get("view") === "internal";
 
   const { month, period } = resolvePeriod(monthParam);
@@ -216,9 +218,11 @@ export async function GET(
     const workstreams = new Map(listWorkstreams().map((w) => [w.id, w]));
     const projects = new Map(listProjects().map((p) => [p.id, p]));
 
-    const usage = project
-      ? listUsageForProject(project.id, period)
-      : listUsage(period);
+    const usage = modelFilter
+      ? listUsageByModel(period, modelFilter)
+      : project
+        ? listUsageForProject(project.id, period)
+        : listUsage(period);
     const sorted = [...usage].sort((a, b) =>
       a.usage_date === b.usage_date
         ? a.id.localeCompare(b.id)
