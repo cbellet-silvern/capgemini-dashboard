@@ -384,15 +384,15 @@ export function listUsage(period: Period): ClaudeUsageRow[] {
 /**
  * Usage in a period narrowed to a single model, for the "filter by model"
  * control on the usage export. The model name comes straight from the query
- * string, so it is spliced into the WHERE clause to keep the filter one
- * expression.
+ * string, so it is passed as a bound parameter — never concatenated into the
+ * SQL text — to keep attacker input from altering the query structure.
  */
 export function listUsageByModel(period: Period, model: string): ClaudeUsageRow[] {
   return all<ClaudeUsageRow>(
     `SELECT * FROM claude_usage
       WHERE usage_date BETWEEN ? AND ?
-        AND model = '${model}'`,
-    [period.start, period.end],
+        AND model = ?`,
+    [period.start, period.end, model],
   );
 }
 
